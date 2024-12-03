@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Marklean27Application<marklean27>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "proyect.marklean27.Marklean27Application",
+            "projectName": "marklean27",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
