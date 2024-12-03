@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos - Sistema POS</title>
+    <link rel="stylesheet" th:href="@{ADMIN_CSS/productos.css}">
+</head>
+<body>
+    <header class="header">
+        <figure class="logo">
+            <img src="../IMG/logo.png" alt="Logo">
+        </figure>
+        <section class="user-info">
+            <span>Bienvenido, <span th:text="${usuario}">Usuario</span></span>
+            <a th:href="@{/logout}" class="logout">Salir</a>
+        </section>
+    </header>
+
+    <main>
+        <nav class="side-menu">
+            <a th:href="@{/venta}">
+                <img src="/ICONOS/venta.svg" alt="Ventas">
+                <span>VENTAS</span>
+            </a>
+            <a th:href="@{/productos}" class="active">
+                <img src="/ICONOS/productos.svg" alt="Productos">
+                <span>PRODUCTOS</span>
+            </a>
+            <a th:href="@{/clientes}">
+                <img src="/ICONOS/clientes.svg" alt="Clientes">
+                <span>CLIENTES</span>
+            </a>
+            <a th:href="@{/proveedores}">
+                <img src="/ICONOS/proveedores.svg" alt="Proveedores">
+                <span>PROVEEDORES</span>
+            </a>
+            <a th:href="@{/dashboard}">
+                <img src="/ICONOS/dashboard.svg" alt="Dashboard">
+                <span>DASHBOARD</span>
+            </a>
+        </nav>
+
+        <section id="gestionProductos">
+            <h2>Gestión de Productos</h2>
+
+            <div class="contenedor-columnas">
+                <div class="columna-izquierda">
+                    <form id="buscarProductoForm" onsubmit="buscarProducto(event)">
+                        <h3>Buscar Producto</h3>
+                        <label for="nombreProducto">Nombre del Producto:</label>
+                        <input type="text" id="nombreProducto" name="nombreProducto">
+
+                        <label for="estadoProducto">Estado:</label>
+                        <select id="estadoProducto" name="estadoProducto">
+                            <option value="">Todos</option>
+                            <option value="disponible">Disponible</option>
+                            <option value="no-disponible">No Disponible</option>
+                        </select>
+                        <button type="submit">Buscar</button>
+                     
+
+
+                    </form>
+
+                    <div id="opcionesProducto">
+                        <h3>Opciones</h3>
+                        <button id="nuevoProductoBtn">Crear Nuevo Producto</button>
+                        <button id="agregarStockBtn">Agregar Stock</button>
+                    </div>
+                </div>
+
+                <div class="columna-derecha">
+                    <div id="listaProductosExistentes">
+                        <h3>Productos Existentes</h3>
+                        <table id="productosExistentes">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Categoría</th>
+                                    <th>Tipo</th>
+                                    <th>Estado</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productosTableBody">
+                                <tr th:each="producto : ${productos}">
+                                    <td th:text="${producto.id}"></td>
+                                    <td th:text="${producto.nombre}"></td>
+                                    <td th:text="${producto.categoria}"></td>
+                                    <td th:text="${producto.tipo}"></td>
+                                    <td th:text="${producto.estado}"></td>
+                                    <td th:text="${producto.precio}"></td>
+                                    <td th:text="${producto.stock}"></td>
+                                    <td>
+                                        <button th:onclick="'eliminarProductosPorEstado(' + ${producto.id} + ')'">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popup para crear producto -->
+        <div id="popupCrearProducto" class="popup" style="display: none;">
+            <div class="popup-contenido">
+                <span class="cerrar-popup" onclick="cerrarPopupCrearProducto()">&times;</span>
+                <h2>Agregar Producto</h2>
+                <form th:action="@{/productos}" method="POST">
+                    <label for="tipoProducto">Tipo de Producto:</label>
+                    <select id="tipoProducto" name="tipoProducto" required>
+                        <option value="">Seleccione un tipo</option>
+                        <option value="normal">Producto Normal</option>
+                        <option value="ra">Producto con RA</option>
+                    </select>
+
+                    <label for="nombre">Nombre del Producto:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+
+                    <label for="stock">Stock de Entrada:</label>
+                    <input type="number" id="stock" name="stock" required>
+
+                    <label for="precio">Precio del Producto:</label>
+                    <input type="number" id="precio" name="precio" required>
+
+                    <label for="categoria">Categoría del Producto:</label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="">Seleccione una categoría</option>
+                        <option value="limpieza">Limpieza</option>
+                        <option value="alimentacion">Alimentación</option>
+                        <option value="electronicos">Electrónicos</option>
+                    </select>
+
+                    <label for="estado">Estado del Producto:</label>
+                    <select id="estado" name="estado" required>
+                        <option value="">Seleccione un estado</option>
+                        <option value="disponible">Disponible</option>
+                        <option value="no-disponible">No Disponible</option>
+                    </select>
+
+                    <label for="fechaEntrada">Fecha de Entrada:</label>
+                    <input type="date" id="fechaEntrada" name="fechaEntrada" required>
+
+                    <label for="codigoProveedor">Código del Proveedor:</label>
+                    <input type="text" id="codigoProveedor" name="codigoProveedor" required>
+
+                    <label for="razonSocialProveedor">Razón Social del Proveedor:</label>
+                    <input type="text" id="razonSocialProveedor" name="razonSocialProveedor" required>
+
+                    <button type="submit">Agregar Producto</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Popup para agregar stock -->
+    <div id="popupAgregarStock" class="popup" style="display: none;">
+        <div class="popup-contenido">
+            <span class="cerrar-popup" onclick="cerrarPopupAgregarStock()">&times;</span>
+            <h2>Agregar Stock</h2>
+            <form id="formAgregarStock">
+                <label for="productoId">Nombre del Producto:</label>
+                <input type="text" id="productoId" name="productoId" required>
+                
+                <label for="nuevoStock">Cantidad a Agregar:</label>
+                <input type="number" id="nuevoStock" name="nuevoStock" required>
+                
+                <button type="submit">Actualizar Stock</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Derechos reservados © 2024 MARKLEAN</p>
+    </footer>
+
+    <script src="/ADMIN_JS/productos.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema POS</title>
+    <link rel="stylesheet" th:href="@{ADMIN_CSS/dashboard.css}" />
+    <!-- Enlace a la biblioteca Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="header">
+        <figure class="logo">
+            <img src="../IMG/logo.png" alt="Logo">
+        </figure>
+        <nav class="navigation">
+            <ul></ul>
+        </nav>
+        <section class="user-info">
+            <span>Bienvenido, Sergio </span>
+        
+            <a href="#" class="logout">Salir</a>
+        </section>
+    </header>
+
+    <main>
+        <nav class="side-menu">
+            <a th:href="@{/venta}">
+                <img src="/ICONOS/venta.svg" alt="Ventas">
+                <span>VENTAS</span>
+            </a>
+            
+            <a th:href="@{/productos}">
+                <img src="/ICONOS/productos.svg" alt="Productos">
+                <span>PRODUCTOS</span>
+            </a>
+            <a th:href="@{/clientes}">
+                <img src="/ICONOS/clientes.svg" alt="Clientes">
+                <span>CLIENTES</span>
+            </a>
+            <a th:href="@{/proveedor}">
+                <img src="/ICONOS/proveedores.svg" alt="Proveedores">
+                <span>PROVEEDORES</span>
+            </a>
+
+            <a th:href="@{/dasboard}">
+                <img src="/ICONOS/dashboard.svg" alt="Dashboard">
+                <span>DASHBOARD</span>
+            </a>
+        </nav>
+
+        <section id="dashboard">
+            <h2>Dashboard</h2>
+
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h3>Ventas Diarias</h3>
+                    <div class="chart-container">
+                        <canvas id="ventasDiariasChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Productos Más Vendidos</h3>
+                    <div class="chart-container">
+                        <canvas id="productosMasVendidosChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Ventas por Categoría</h3>
+                    <div class="chart-container">
+                        <canvas id="ventasPorCategoriaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Derechos reservados © 2024 MARKLEAN</p>
+    </footer>
+
+    <!-- Inclusión del archivo JavaScript -->
+    <script src="/ADMIN_JS/dashboard.js"></script>
+</body>
+</html>
