@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema POS</title>
+    <link rel="stylesheet" th:href="@{ADMIN_CSS/proveedor.css}" />
+</head>
+<body>
+    <header class="header">
+        <figure class="logo">
+            <img src="../img/logo.png" alt="Logo">
+        </figure>
+        <section class="user-info">
+            <span>Bienvenido, Sergio </span>
+            <a href="#" class="logout">Salir</a>
+        </section>
+    </header>
+    <main>
+        <nav class="side-menu">
+            <a th:href="@{/venta}">
+                <img src="/ICONOS/venta.svg" alt="Ventas">
+                <span>VENTAS</span>
+            </a>
+            <a th:href="@{/productos}">
+                <img src="/ICONOS/productos.svg" alt="Productos">
+                <span>PRODUCTOS</span>
+            </a>
+            <a th:href="@{/clientes}">
+                <img src="/ICONOS/clientes.svg" alt="Clientes">
+                <span>CLIENTES</span>
+            </a>
+            <a th:href="@{/proveedor}">
+                <img src="/ICONOS/proveedores.svg" alt="Proveedores">
+                <span>PROVEEDORES</span>
+            </a>
+            <a th:href="@{/dasboard}">
+                <img src="/ICONOS/dashboard.svg" alt="Dashboard">
+                <span>DASHBOARD</span>
+            </a>
+        </nav>
+
+        <!-- Sección de proveedores -->
+        <section id="proveedores">
+            <h2>Buscar/editar proveedores existentes</h2>
+            <section class="contenedor">
+                <section class="search-section">
+                    <div>
+                        <form action="" method="get">
+                            <label for="search-term">ID Proveedor:</label>
+                            <input type="text" id="search-term" name="search-term" placeholder="Ingrese el término de búsqueda">
+                            <button type="submit">Buscar</button>
+                        </form>
+                    </div>
+                </section>
+            </section>
+
+            <section class="results-section">
+                <div class="contenedor-columnas centrado">
+                    <div class="columna-derecha">
+                        <div id="listaResultados">
+                            <h3>Resultados de Búsqueda</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>CODIGO</th>
+                                        <th>NOMBRE</th>
+                                        <th>CORREO</th>
+                                        <th>TELEFONO</th>
+                                        <th>CIUDAD</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1001</td>
+                                        <td>Aureliano Buendía</td>
+                                        <td>aurelio@gmail.com</td>
+                                        <td>3214563421</td>
+                                        <td>Bogotá</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <section class="add-customer-section">
+            <h2>Agregar Nuevo Proveedor</h2>
+            <button type="submit">Agregar</button>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>Derechos reservados © 2024 MARKLEAN</p>
+    </footer>
+
+    <script src="/ADMIN_JS/proveedor.js"></script>
+</body>
+</html>

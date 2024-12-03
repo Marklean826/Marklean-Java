@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema POS</title>
+    <link rel="stylesheet" th:href="@{ADMIN_CSS/cliente.css}" />
+</head>
+<body>
+    <header class="header">
+        <figure class="logo">
+            <img src="/IMG/logo.png" alt="Logo">
+        </figure>
+        <nav class="navigation">
+            <ul></ul>
+        </nav>
+        <section class="user-info">
+            <span>Bienvenido, Sergio </span>
+        
+            <a href="#" class="logout">Salir</a>
+        </section>
+    </header>
+    <main>
+        <nav class="side-menu">
+            <a th:href="@{/venta}">
+                <img src="/ICONOS/venta.svg" alt="Ventas">
+                <span>VENTAS</span>
+            </a>
+            
+            <a th:href="@{/productos}">
+                <img src="/ICONOS/productos.svg" alt="Productos">
+                <span>PRODUCTOS</span>
+            </a>
+            <a th:href="@{/clientes}">
+                <img src="/ICONOS/clientes.svg" alt="Clientes">
+                <span>CLIENTES</span>
+            </a>
+            <a th:href="@{/proveedor}">
+                <img src="/ICONOS/proveedores.svg" alt="Proveedores">
+                <span>PROVEEDORES</span>
+            </a>
+
+            <a th:href="@{/dasboard}">
+                <img src="/ICONOS/dashboard.svg" alt="Dashboard">
+                <span>DASHBOARD</span>
+            </a>
+        </nav>
+
+
+
+        <!-- Sección de ventas -->
+        <section id="Cliente">
+            <h2>Buscar/ editar clientes existentes</h2>
+            <section class="contenedor">
+                <section class="search-section">
+                    <div>
+                        <form action="/" method="get">
+                            <label for="search-term">Nombre Cliente:</label>
+                            <input type="text" id="search-term" name="search-term" placeholder="Ingrese nombre del cliente">
+                            <button type="submit">Buscar</button>
+                        </form>
+                    </div>
+                </section>
+            </section>
+            <section class="results-section">
+                <div class="contenedor-columnas centrado">
+                    <div class="columna-derecha">
+                        <div id="listaResultados">
+                            <h3>Resultados De Búsqueda</h3>
+                            <table id="productosVenta">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Email</th>
+                                        <th>Teléfono</th>
+                                        <th>Dirección</th>
+                                        <th>Ciudad</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Los datos se rellenan dinámicamente desde el modelo -->
+                                    <tr th:each="cliente : ${clientes}">
+                                        <td th:text="${cliente.id}"></td>
+                                        <td th:text="${cliente.nombre}"></td>
+                                        <td th:text="${cliente.email}"></td>
+                                        <td th:text="${cliente.telefono}"></td>
+                                        <td th:text="${cliente.direccion}"></td>
+                                        <td th:text="${cliente.ciudad}"></td>
+                                        <td>
+                                            <!-- Botones para editar o eliminar -->
+                                            <button th:onclick="'/editar/' + ${cliente.id}">Editar</button>
+                                            <button th:onclick="'/eliminar/' + ${cliente.id}">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+        
+
+    </main>
+
+    <footer class="footer">
+        <!-- Contenido del footer -->
+    </footer>
+
+    <script src="/ADMIN_JS/cliente.js"></script>
+
+
+    <footer class="footer">
+        <p>Derechos reservados © 2024 MARKLEAN</p>
+    </footer>
+
+</body>
+</html>
